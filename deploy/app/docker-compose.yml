@@ -1,0 +1,33 @@
+version: "3"
+services:
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: always
+    volumes:
+      - ./nginx/conf/reverse_proxy.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+    depends_on:
+      - api
+  api:
+    image: 0815hunter/bank-app:1.0-SNAPSHOT
+    container_name: api
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db:5432
+      DATABASE_NAME: my-db
+      DATABASE_USER: my-db
+      DATABASE_PASSWORD: my-db-password
+  db:
+    image: postgres:9.6.2-alpine
+    container_name: my-pg-db
+    restart: always
+    volumes:
+      - ./data/db/:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: my-db
+      POSTGRES_USER: my-db
+      POSTGRES_PASSWORD: my-db-password

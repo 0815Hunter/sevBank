@@ -1,0 +1,33 @@
+quarkus:
+  datasource:
+    db-kind: pg
+    username: ${DATABASE_USER:my-db}
+    password: ${DATABASE_PASSWORD:}
+    jdbc:
+      url: jdbc:postgresql://${DATABASE_HOST:localhost:5432}/${DATABASE_NAME:my-db}
+      max-size: 16
+  hibernate-orm:
+    database:
+      generation: update
+    dialect: org.hibernate.dialect.PostgreSQL95Dialect
+    physical-naming-strategy: de.sevdesk.config.hibernate.namingstrategy.CustomPhysicalNamingStrategy
+"%prod":
+  quarkus:
+    hibernate-orm:
+      database:
+        generation: update
+    http:
+      port: 8081
+      host: localhost
+    container-image:
+      build: true
+      push: false
+      registry: 0815hunter
+      group:
+      name: bank-app
+
+"%dev":
+  quarkus:
+    http:
+      port: 8082
+      host: localhost
