@@ -1,4 +1,4 @@
-package de.sevdesk.api.account;
+package de.sevdesk.api.account.service;
 
 import de.sevdesk.api.account.AccountRepository;
 import de.sevdesk.api.account.data.entity.TermAccount;

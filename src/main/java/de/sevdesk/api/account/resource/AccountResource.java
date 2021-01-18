@@ -1,4 +1,4 @@
-package de.sevdesk.api.account;
+package de.sevdesk.api.account.resource;
 
 import de.sevdesk.api.account.data.entity.Account;
 import de.sevdesk.api.account.data.rest.get.AccountGet;
