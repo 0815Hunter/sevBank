@@ -1,5 +1,6 @@
 package de.sevdesk.api.customer;
 
+import de.sevdesk.api.account.data.rest.get.AccountGet;
 import de.sevdesk.api.customer.data.rest.CustomerGet;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
@@ -23,11 +24,15 @@ public class CustomerResourceITest {
 
         CustomerGet customer = response.getBody().as(CustomerGet.class);
 
-        Set<Long> accountIds = customer.getAccountIds();
+        Set<AccountGet> accounts = customer.getAccounts();
 
-        Assertions.assertNotNull(accountIds);
+        Assertions.assertNotNull(accounts);
 
-        Assertions.assertEquals(2, accountIds.size());
+        Assertions.assertEquals(2, accounts.size());
+        boolean containsAccountsWithIdOneAndTwo = accounts
+                .stream()
+                .allMatch(accountGet -> accountGet.getId() == 1 || accountGet.getId() == 2);
+        Assertions.assertTrue(containsAccountsWithIdOneAndTwo);
 
     }
 }

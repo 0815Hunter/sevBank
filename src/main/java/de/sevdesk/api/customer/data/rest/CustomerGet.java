@@ -1,5 +1,6 @@
 package de.sevdesk.api.customer.data.rest;
 
+import de.sevdesk.api.account.data.rest.get.AccountGet;
 import de.sevdesk.api.customer.data.entity.Gender;
 import lombok.Data;
 
@@ -14,6 +15,6 @@ public class CustomerGet {
     private String lastName;
     private LocalDate birthDate;
     private Gender gender;
-    private Set<Long> accountIds;
+    private Set<AccountGet> accounts;
 
 }
