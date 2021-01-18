@@ -6,10 +6,10 @@ import de.sevdesk.api.customer.data.rest.CustomerGet;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.BadRequestException;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 @ApplicationScoped
 public class CustomerService {
@@ -38,12 +38,12 @@ public class CustomerService {
         return customerMapper.toCustomerGet(customer);
     }
 
-    public List<CustomerGet> getAllCustomerAsCustomerGetList() {
+    public Set<CustomerGet> getAllCustomerAsCustomerGetSet() {
         return customerRepository
                 .findAll()
                 .stream()
                 .map(customerMapper::toCustomerGet)
-                .collect(toList());
+                .collect(toSet());
     }
 
     public void addCustomer(Customer customer) {

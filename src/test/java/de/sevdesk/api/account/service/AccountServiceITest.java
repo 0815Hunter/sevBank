@@ -3,7 +3,6 @@ package de.sevdesk.api.account.service;
 import de.sevdesk.api.account.AccountRepository;
 import de.sevdesk.api.account.data.entity.Account;
 import de.sevdesk.api.account.data.rest.get.AccountGet;
-import de.sevdesk.api.account.service.AccountService;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.function.Executable;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotAuthorizedException;
-import java.util.List;
+import java.util.Set;
 
 @QuarkusTest
 public class AccountServiceITest {
@@ -28,7 +27,7 @@ public class AccountServiceITest {
     @Test
     @TestTransaction
     public void testGetAllAccounts() {
-        List<AccountGet> allAccounts = accountService.getAllAccounts();
+        Set<AccountGet> allAccounts = accountService.getAllAccounts();
 
         Assertions.assertNotNull(allAccounts);
     }

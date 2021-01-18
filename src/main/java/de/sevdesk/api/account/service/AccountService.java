@@ -2,10 +2,7 @@ package de.sevdesk.api.account.service;
 
 import de.sevdesk.api.account.AccountRepository;
 import de.sevdesk.api.account.data.entity.Account;
-import de.sevdesk.api.account.data.entity.CheckAccount;
-import de.sevdesk.api.account.data.entity.TermAccount;
-import de.sevdesk.api.account.data.mapper.CheckAccountMapper;
-import de.sevdesk.api.account.data.mapper.TermAccountMapper;
+import de.sevdesk.api.account.data.mapper.AccountMapper;
 import de.sevdesk.api.account.data.rest.get.AccountGet;
 import de.sevdesk.api.customer.CustomerService;
 import de.sevdesk.api.customer.data.entity.Customer;
@@ -14,10 +11,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotAuthorizedException;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 @ApplicationScoped
 public class AccountService {
@@ -26,14 +23,12 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final CustomerService customerService;
 
-    private final CheckAccountMapper checkAccountMapper;
-    private final TermAccountMapper termAccountMapper;
+    private final AccountMapper accountMapper;
 
-    public AccountService(AccountRepository accountRepository, CustomerService customerService, CheckAccountMapper checkAccountMapper, TermAccountMapper termAccountMapper) {
+    public AccountService(AccountRepository accountRepository, CustomerService customerService, AccountMapper accountMapper) {
         this.accountRepository = accountRepository;
         this.customerService = customerService;
-        this.checkAccountMapper = checkAccountMapper;
-        this.termAccountMapper = termAccountMapper;
+        this.accountMapper = accountMapper;
     }
 
     public Account getAccount(Long id) {
@@ -55,16 +50,9 @@ public class AccountService {
         return account;
     }
 
-    public List<AccountGet> getAllAccounts() {
-        return accountRepository.findAll().stream().map(account -> {
-            AccountGet accountGet;
-            if (account instanceof CheckAccount) {
-                accountGet = checkAccountMapper.toCheckAccountGet((CheckAccount) account);
-            } else {
-                accountGet = termAccountMapper.toTermAccountGet((TermAccount) account);
-            }
-            return accountGet;
-        }).collect(toList());
+    public Set<AccountGet> getAllAccounts() {
+        Set<Account> accounts = accountRepository.findAll().stream().collect(toSet());
+        return accountMapper.toAccountGetSet(accounts);
     }
 
     public Long addAccount(Account account) {

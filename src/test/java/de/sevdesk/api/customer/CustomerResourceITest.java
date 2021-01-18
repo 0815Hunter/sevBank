@@ -1,6 +1,6 @@
 package de.sevdesk.api.customer;
 
-import de.sevdesk.api.account.data.rest.get.CheckAccountGet;
+import de.sevdesk.api.account.data.rest.get.AccountGet;
 import de.sevdesk.api.customer.data.rest.CustomerGet;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
@@ -24,7 +24,7 @@ public class CustomerResourceITest {
 
         CustomerGet customer = response.getBody().as(CustomerGet.class);
 
-        Set<CheckAccountGet> accounts = customer.getCheckAccounts();
+        Set<AccountGet> accounts = customer.getAccounts();
 
         Assertions.assertNotNull(accounts);
 

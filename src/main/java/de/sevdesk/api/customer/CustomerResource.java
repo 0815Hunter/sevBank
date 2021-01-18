@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
+import java.util.Set;
 
 @Path("/customers")
 public class CustomerResource {
@@ -21,9 +21,9 @@ public class CustomerResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public List<CustomerGet> getCustomers() {
+    public Set<CustomerGet> getCustomers() {
 
-        return customerService.getAllCustomerAsCustomerGetList();
+        return customerService.getAllCustomerAsCustomerGetSet();
     }
 
     @GET
