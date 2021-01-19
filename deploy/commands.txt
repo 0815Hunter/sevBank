@@ -1,0 +1,3 @@
+docker-compose -p sevBank up
+docker-compose -p sevBank-native up
+docker-compose -p sevBank-native-distroless up
