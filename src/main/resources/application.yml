@@ -1,4 +1,7 @@
 quarkus:
+  http:
+    port: 8081
+    host: localhost
   datasource:
     db-kind: pg
     username: ${DATABASE_USER:my-db}
@@ -11,23 +14,27 @@ quarkus:
       generation: update
     dialect: org.hibernate.dialect.PostgreSQL95Dialect
     physical-naming-strategy: de.sevdesk.config.hibernate.namingstrategy.CustomPhysicalNamingStrategy
+  container-image:
+    build: false
+    push: false
+    registry: 0815hunter
+    group:
+    name: bank-app
 "%prod":
   quarkus:
     hibernate-orm:
       database:
         generation: update
-    http:
-      port: 8081
-      host: localhost
     container-image:
       build: true
-      push: false
-      registry: 0815hunter
-      group:
-      name: bank-app
-
+"%prod-native":
+  quarkus:
+    native:
+      container-build: true
 "%dev":
   quarkus:
     http:
       port: 8082
       host: localhost
+
+
