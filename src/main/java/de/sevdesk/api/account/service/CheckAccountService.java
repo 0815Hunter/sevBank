@@ -20,7 +20,7 @@ public class CheckAccountService {
     private final AccountService accountService;
     private final CheckAccountMapper checkAccountMapper;
 
-    @ConfigProperty(name = "account.term-account.messages.not-a-term-account-message", defaultValue = "Not a check account!")
+    @ConfigProperty(name = "account.check-account.messages.not-a-check-account-message", defaultValue = "Not a check account!")
     String notACheckAccountMessage;
 
     public CheckAccountService(AccountService accountService, CheckAccountMapper checkAccountMapper) {
